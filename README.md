@@ -1,8 +1,8 @@
-# Webcinechill
+# Webcinechill:
 Social Network Application following the API REST made as part of PC3R(Programmation Concurrente Reactive et Repartie) teaching unit at Sorbonne University
 
 
-##Build
+##Build:
 Databases:  
 -mySQL 8.0 : store USERS , FRIENDS and CONNEXIONS   
 -MongoDB 2.10 or further: store messages (Json format)  
@@ -14,7 +14,7 @@ jars available in WEBContent/WEB-INF/lib:
 -mongo-2.10.1.jar  
 -mysql-connector-java-5.1.18-bin.jar  
 
-##Requirements to run in local
+##Requirements to run in local:  
 -mySQL Server  
 -php 7 or further  
 -phpmyadmin  
@@ -22,8 +22,8 @@ jars available in WEBContent/WEB-INF/lib:
 
 -you can use all-in-one toolkit :XAMPP  
 
-##Query string examples for Servlet testing
--http://localhost:8081/WebCineFlix/HelloWorld  
+##Query string examples for Servlet testing:  
+-http://localhost:8081/WebCineFlix/HelloWorld    
 -http://localhost:8081/WebTwisterAdel/CreateUser?nom=John&prenom=Doe&login=anonymous777&password=1234  
 
 
