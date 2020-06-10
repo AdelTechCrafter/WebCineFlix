@@ -1,0 +1,6 @@
+db.createCollection("messages") 
+db.messages.insert({author_id : '1�,author_name:'test1', text : �cours L3�, date : ISODate()})
+db.messages.insert({"author_id":1,"text":"test de mongo","date":"ISODate()"})
+
+db.createCollection("privateMessages") 
+db.privateMessages.insert({"author_id":1,"text":"test de mongo","date":"ISODate()","id_friend:"2})

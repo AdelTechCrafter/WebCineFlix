@@ -1,0 +1,9 @@
+Nom du web service:CreateUser
+URL du web service:/CreateUser
+Description du service:permet de créer un nouvel utilisateur
+Paramètres en entrée:prenom + nom + login + password
+Format de sortie:JSON->{}
+Exemple de sortie:{},{"Erreur 1001:login déjà existant"}
+Erreurs possibles:login inexistant/SQL erreur/ JSon erreur
+Avancement du Service:Servlet OK
+Classes JAVA en rapport avec le Web service:BD/ErrorJSON.java/ToolUser.java

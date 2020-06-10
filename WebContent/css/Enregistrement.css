@@ -1,0 +1,16 @@
+@CHARSET "UTF-8";
+
+#enregistrement_main .bloc1{
+	position:relative;
+}
+
+#enregistrement_main .buttons{
+	display: inline-block;
+	text-align: center;
+	float:center;
+}
+
+body{
+	background-color:#c0deed;
+	text-align: center;
+}

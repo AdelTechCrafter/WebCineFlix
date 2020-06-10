@@ -1,0 +1,9 @@
+Nom du web service:AddFriend
+URL du web service:/AddFriend
+Description du service:permet d'ajouter un ami
+Paramètres en entrée: key + id_friend
+Format de sortie:JSON->{}
+Exemple de sortie:{},{"Erreur 1000:user inexistant"}
+Erreurs possibles:user inexistant/SQL erreur/ JSON erreur
+Avancement du Service: Servlet OK
+Classes JAVA en rapport avec le Web service:BD/ErrorJSON.java/ToolFriend.java/ToolUser.java

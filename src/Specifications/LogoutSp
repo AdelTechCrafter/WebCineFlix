@@ -1,0 +1,9 @@
+Nom du web service:Logout
+URL du web service:/Logout
+Description du service:permet de se déconnecter(enlève le n-uplet dans la table connexion)
+Paramètres en entrée:key
+Format de sortie:JSON->{}
+Exemple de sortie:{},{"Erreur 1002:l'utilisateur n'est pas connecté "}
+Erreurs possibles:user pas connecté/SQL erreur/ JSON erreur
+Avancement du Service:Servlet OK
+Classes JAVA en rapport avec le Web service:BD/ErrorJSON.java/ToolUser.java

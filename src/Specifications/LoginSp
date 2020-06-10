@@ -1,0 +1,9 @@
+Nom du web service:Login
+URL du web service:user/Login
+Description du service:permet de connecter user et de récupérer la clé d'authentification
+Paramètres en entrée:login+password
+Format de sortie:JSON->{id,login,key}
+Exemple de sortie:{3415266,adel,MGFFM23456F4GF4GF56G4F4GF56G4FG5},{"Erreur 1000:user inexistant dans la base de donnée SQL"}
+Erreurs possibles:login inexistant/SQL erreur/ JSON erreur
+Avancement du Service:Servlet OK
+Classes JAVA en rapport avec le Web service:BD/ErrorJSON.java/ToolUser.java

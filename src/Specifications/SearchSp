@@ -1,0 +1,9 @@
+Nom du web service:Search
+URL du web service:/Search
+Description du service:permet de chercher un utilisateur  selon son id
+Paramètres en entrée: key + query + friends
+Format de sortie:JSON->{Décrit lors du TD 4}
+Exemple de sortie:{},{"Erreur 1000:user inexistant"}
+Erreurs possibles:user inexistant/SQL erreur/ JSON erreur
+Avancement du Service:Servlet pas implémenté
+Classes JAVA en rapport avec le Web service:BD/ErrorJSON.java/ToolUser.java
