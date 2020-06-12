@@ -1,6 +1,27 @@
 db.createCollection("messages") 
-db.messages.insert({"author_id" :"1","author_name":"test1", "text" : "hello mongodb", date : ISODate()})
-db.messages.insert({"author_id":1,"text":"test de mongo","date":"ISODate()"})
+db.messages.insert(
+	{
+	author_id :2,
+	author_name:"albert01",
+	text: "I created  special theory of relativity", 
+	date : ISODate()
+	}
+)
+db.messages.insert(
+	{
+	author_id :3,
+	author_name:"marie01",
+	text: "I discovered radium", 
+	date: ISODate()
+	}
+)
 
 db.createCollection("privateMessages") 
-db.privateMessages.insert({"author_id":1,"text":"test de mongo","date":"ISODate()","id_friend:"2})
+db.privateMessages.insert(
+	{
+	author_id:2,
+	text:"May you explain to me how you discovered radium?",
+	date:ISODate(),
+	"id_friend:2
+	}
+)
