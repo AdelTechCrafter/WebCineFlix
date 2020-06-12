@@ -43,7 +43,7 @@ public class Database {
 	{
 		//connexion a mongodb pr les messages
 		Mongo m = new Mongo("localhost");
-		DB db = m.getDB("test");
+		DB db = m.getDB("webcineflixdb");
 		DBCollection collection= db.getCollection(nom_collection);
 		return collection;
 	}

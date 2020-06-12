@@ -1,12 +1,13 @@
 package test;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
 import org.json.JSONException;
+
+import bd.Database;
 import services.User;
 
 public class TestCreateUser {
@@ -21,8 +22,7 @@ public class TestCreateUser {
 			User.CreateUser("abra4","cadabra3", "magic3", "secret3");
 			User.CreateUser("abra5","cadabra5", "magic5", "secret5");
 			User.CreateUser("abra6","cadabra6", "magic6", "secret6");
-			
-			Connection c = DriverManager.getConnection("jdbc:mysql://localhost/AdelDB","root","root");
+			Connection c =Database.getMySQLConnection();
 			Statement instruction = c.createStatement();
 			
 			ResultSet curseur = instruction.executeQuery("Select * from USERS;");

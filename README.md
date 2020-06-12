@@ -1,4 +1,4 @@
-# Webcinechill:
+# WebCineChill:
 Social Network Application following the API REST made as part of PC3R(Programmation Concurrente Reactive et Repartie) teaching unit at Sorbonne University
 
 

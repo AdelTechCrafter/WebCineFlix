@@ -17,7 +17,7 @@ public class TestDeleteUser {
 		try {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
 			User.DeleteUser("f5g48d4q6s5d91cv5f4g3df45q1g8t5h");
-			Connection c = DriverManager.getConnection("jdbc:mysql://localhost/AdelDB","root","root");
+			Connection c = DriverManager.getConnection("jdbc:mysql://localhost/webcineflixdb","root","root");
 			Statement instruction = c.createStatement();
 			
 			ResultSet curseur = instruction.executeQuery("Select * from USERS;");

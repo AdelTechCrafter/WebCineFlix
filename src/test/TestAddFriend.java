@@ -16,9 +16,9 @@ public class TestAddFriend {
 		//Connection c = Database.getMySQLConnection();
 		try {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
-			Friend.AddFriend("WZ7CRG7QJSUK51REEET77870QMW70T2X",3);
+			Friend.AddFriend("AWXIT8AVO9Q81JVAUJC1YZZFPW7WPZXV",3);
 			//Friend.AddFriend("X3J5NPQG3YV0MVXWK3UIOVQ318CEWVJ0",2);
-			Connection c = DriverManager.getConnection("jdbc:mysql://localhost/AdelDB","root","root");
+			Connection c = DriverManager.getConnection("jdbc:mysql://localhost/webcineflixdb","root","");
 			Statement instruction = c.createStatement();
 			
 			ResultSet curseur = instruction.executeQuery("Select * from FRIENDS;");

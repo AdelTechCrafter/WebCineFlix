@@ -23,6 +23,7 @@ public class RemoveFriend extends HttpServlet {
 		String key=request.getParameter("key");
 		int id_friend=Integer.parseInt(request.getParameter("id_friend"));
 		try {
+			Class.forName("com.mysql.jdbc.Driver").newInstance();	
 			JSONObject res = Friend.RemoveFriend(key, id_friend);
 			response.setContentType("application/json");
 			response.getWriter().println(res.toString());
@@ -31,6 +32,15 @@ public class RemoveFriend extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InstantiationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

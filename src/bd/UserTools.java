@@ -159,7 +159,6 @@ public class UserTools {
 	}	
 //---------------------------Insertions---------------------------------------------------------------	
 	public static void InsertUser(String nom,String prenom,String login,String passwd) throws SQLException{
-		
 		Connection c =Database.getMySQLConnection();
 		Statement instruction =c.createStatement();
         String query="INSERT INTO USERS VALUES(NULL,\""+nom+"\",\""+prenom+"\",\""+login+"\",\""+"PASSWORD("+passwd+")"+"\")";
@@ -212,6 +211,17 @@ public class UserTools {
         instruction.close();
         c.close();
   
+	}
+	public static void DeleteUser(int id) throws SQLException{
+        Connection c =Database.getMySQLConnection();
+        String query="DELETE FROM USERS WHERE id_user=\""+id+"\";";
+        String query2="DELETE FROM CONNEXIONS WHERE id_user=\""+id+"\";";
+        System.out.println(query);
+        Statement instruction =c.createStatement();
+        instruction.executeUpdate(query);
+        instruction.executeUpdate(query2);
+        instruction.close();
+        c.close();
 	}
 	
 	public static boolean Search(String key,String query,String[] friends){

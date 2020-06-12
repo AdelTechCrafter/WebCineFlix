@@ -73,4 +73,20 @@ public class User {
 		o=ErrorJSON.serviceAccepted();
 		return o;
 	}
+	public static JSONObject DeleteUser(int id) throws JSONException, SQLException{
+		//1)param!=null
+		if(id==0){
+			return ErrorJSON.serviceRefused("mauvais arguments",0);
+		}
+		//2)verifier si user n'existe pas->pas besoin d'interroger le SGBD
+		boolean is_user=UserTools.userExistsv2(id);
+		if(!is_user) return ErrorJSON.serviceRefused("l'utilisateur n'existe pas",2);
+		//2)verifier que l'utilisateur soit co
+		if(!UserTools.isConnected(id))return ErrorJSON.serviceRefused("user not connected",404);
+		//3)Supprimer user dans la base de donnees (table USERS)
+		UserTools.DeleteUser(id);
+		JSONObject o=new JSONObject();
+		o=ErrorJSON.serviceAccepted();
+		return o;
+	}
 }

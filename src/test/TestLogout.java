@@ -24,7 +24,7 @@ public class TestLogout {
 			
 			
 			
-			Connection c = DriverManager.getConnection("jdbc:mysql://localhost/AdelDB","root","root");
+			Connection c = DriverManager.getConnection("jdbc:mysql://localhost/webcineflixdb","root","");
 			Statement instruction = c.createStatement();
 			
 			ResultSet curseur = instruction.executeQuery("Select * from CONNEXIONS;");
