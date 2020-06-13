@@ -1,30 +1,20 @@
 package test;
-import services.Message;
 
+import java.net.UnknownHostException;
 import java.sql.SQLException;
+import com.mongodb.DB;
+import com.mongodb.DBCollection;
+import com.mongodb.DBCursor;
+import com.mongodb.MongoClient;
+import bd.MessageTools;
 
-import org.json.JSONException;
-
-import bd.UserTools;
 
 public class TestAddComment {
-	public static void main(String[]args){
-		
+	public static void main(String[] args) {
 		try {
-			/*
-			
-			DBCollection message=db.getCollection("messages");
-			BasicDBObject query=new BasicDBObject();
-			GregorianCalendar calendar =new java.util.GregorianCalendar();
-			Date date_message=calendar.getTime();
-			query.put("author_id","5");
-			query.put("author_name","cadabra6");
-			query.put("date",date_message);
-			query.put("text","Bonjour test 6");
-			message.insert(query);
-			*/
-			Message.AddComment(UserTools.getkeyfromid(1),"test texte",3,"cadabra3");
-		} catch (JSONException e) {
+			MessageTools.AjoutCommentaire("RRQLE7VIS5LM4ECHM4EJU5QHF6NPSI59","test comment 1");
+			System.out.println("message added");
+		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (SQLException e) {
@@ -32,8 +22,23 @@ public class TestAddComment {
 			e.printStackTrace();
 		}
 		
+		MongoClient m;
+		try {
+			m = new MongoClient("localhost",27017);
+			DB db= m.getDB("webcineflixdb");
+			DBCollection collection=db.getCollection("messages");
+			DBCursor cursor=collection.find();
+			System.out.println("Connection successfull");
+			while(cursor.hasNext()) 
+			{
+				System.out.println(cursor.next());
+			}
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
-		
+
 	}
 			
 		

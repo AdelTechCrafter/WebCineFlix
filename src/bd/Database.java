@@ -1,17 +1,17 @@
 package bd;
 
 import java.net.UnknownHostException;
+import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.sql.Connection;
 
-import javax.sql.DataSource;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import javax.sql.DataSource;
 
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
-import com.mongodb.Mongo;
+import com.mongodb.MongoClient;
 
 public class Database {
 	private DataSource dataSource;
@@ -41,10 +41,9 @@ public class Database {
 	
 	public static DBCollection getCollection(String nom_collection) throws UnknownHostException
 	{
-		//connexion a mongodb pr les messages
-		Mongo m = new Mongo("localhost");
-		DB db = m.getDB("webcineflixdb");
-		DBCollection collection= db.getCollection(nom_collection);
+		MongoClient m= new MongoClient(DBStatic.mongo_url,DBStatic.mongo_port);
+		DB db= m.getDB(DBStatic.mongo_db);
+		DBCollection collection=db.getCollection(nom_collection);
 		return collection;
 	}
 	    

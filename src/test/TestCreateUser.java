@@ -16,12 +16,7 @@ public class TestCreateUser {
 		//Connection c = Database.getMySQLConnection();
 		try {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
-			User.CreateUser("abra","cadabra", "magic", "secret");
-			User.CreateUser("abra2","cadabra2", "magic2", "secret2");
-			User.CreateUser("abra3","cadabra3", "magic3", "secret3");
-			User.CreateUser("abra4","cadabra3", "magic3", "secret3");
-			User.CreateUser("abra5","cadabra5", "magic5", "secret5");
-			User.CreateUser("abra6","cadabra6", "magic6", "secret6");
+			User.CreateUser("Dion","Celine", "singer03", "secret1234");
 			Connection c =Database.getMySQLConnection();
 			Statement instruction = c.createStatement();
 			
@@ -31,7 +26,7 @@ public class TestCreateUser {
 				System.out.println(curseur.getString("login"));
 				System.out.println(curseur.getString("Nom"));
 				System.out.println(curseur.getString("prenom"));
-				System.out.println(curseur.getString("password"));		
+				System.out.println(curseur.getString("password"));
 			}
 			curseur.close();
 			instruction.close();

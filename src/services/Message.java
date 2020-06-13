@@ -2,6 +2,7 @@ package services;
 
 import java.net.UnknownHostException;
 import java.sql.SQLException;
+import java.util.List;
 
 import org.bson.types.ObjectId;
 import org.json.JSONException;
@@ -13,21 +14,13 @@ import bd.MessageTools;
 import bd.UserTools;
 
 public class Message {
-	public static JSONObject AddComment(String key, String text,int author_id,String author_name) throws JSONException{
+	public static JSONObject AddComment(String key, String text) throws JSONException, UnknownHostException, SQLException{
 		//1)param!=null
-		if((key==null)||(text==null)||(author_id==0)||(author_name==null)){
+		if((key==null)||(text==null)){
 			return ErrorJSON.serviceRefused("mauvais arguments",0);
 		}
 		//2)Insertion dans la table MESSAGE
-		try {
-			MessageTools.AjoutCommentaire(key, text);
-		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		MessageTools.AjoutCommentaire(key, text);
 		JSONObject retour=new JSONObject();
 		retour=ErrorJSON.serviceAccepted();
 		return retour;		
@@ -42,7 +35,7 @@ public class Message {
 		JSONObject retour=new JSONObject();
 		try {
 			id = UserTools.getIdfromkey(key);
-			if(!MessageTools.is_author(id, id_comment)) return ErrorJSON.serviceRefused("seul l'auteur peut supprimer son message",1004);
+			if(!(MessageTools.is_author(id, id_comment))) return ErrorJSON.serviceRefused("seul l'auteur peut supprimer son message",1004);
 			//3)Suppression dans la table MESSAGE
 			MessageTools.SupprimerCommentaire(id_comment);
 			retour=ErrorJSON.serviceAccepted();
@@ -79,5 +72,14 @@ public class Message {
 		JSONObject retour=new JSONObject();
 		retour=ErrorJSON.serviceAccepted();
 		return retour;		
+	}
+	public static List<JSONObject> ListMessage(String key, String id_users)throws JSONException, UnknownHostException, SQLException
+	{
+		return bd.MessageTools.ListMessage(key,id_users);
+	}
+	
+	public static List<JSONObject> ListMessageMain(String key, String id_users)throws JSONException, UnknownHostException, SQLException
+	{
+		return bd.MessageTools.ListMessageMain(key,id_users);
 	}
 }

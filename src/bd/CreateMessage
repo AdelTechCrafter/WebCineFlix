@@ -18,10 +18,9 @@ db.messages.insert(
 
 db.createCollection("privateMessages") 
 db.privateMessages.insert(
-	{
-	author_id:2,
+	{author_id:2,
 	text:"May you explain to me how you discovered radium?",
 	date:ISODate(),
-	"id_friend:2
+	id_friend:3
 	}
 )

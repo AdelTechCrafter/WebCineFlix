@@ -7,7 +7,9 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import org.bson.BasicBSONObject;
 import org.bson.types.ObjectId;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.mongodb.BasicDBObject;
@@ -29,8 +31,8 @@ public class MessageTools {
 		Date date_message=calendar.getTime();
 		query.put("author_id",author_id);
 		query.put("author_name",author_name);
-		query.put("date",date_message);
 		query.put("text",text);
+		query.put("date",date_message);
 		messages.insert(query);
 	}
 	
@@ -63,8 +65,8 @@ public class MessageTools {
 		BasicDBObject query=new BasicDBObject();
 		query.put("_id",id_com);
 		query.put("author_id",id_user);
-		DBCursor trouve=messages.find(query);
-		return trouve.hasNext();
+		DBObject retour=messages.findOne(query);
+		return (retour!=null);
 }
 	public static boolean messageExists(ObjectId id_com) throws UnknownHostException,SQLException{
 		DBCollection messages=Database.getCollection("messages");
@@ -73,7 +75,8 @@ public class MessageTools {
 		DBCursor trouve=messages.find(query);
 		return trouve.hasNext();
 }
-	public static List<JSONObject> ListMessages(String key){
+	/*
+	public static List<JSONObject> ListMessages(String key,String id_user){
 		try {
 			List<JSONObject> Lmessages= new ArrayList<>();
 			DBCollection messages=Database.getCollection("messages");
@@ -96,7 +99,64 @@ public class MessageTools {
 		}
 		return null;
 	}
+	*/
 	
+	public static List<JSONObject> ListMessage(String key,String id_user) throws UnknownHostException, JSONException, SQLException
+	{	
+		DBCollection message=Database.getCollection("messages");
+		//BasicDBObject retour=new BasicDBObject();
+		int id_int = Integer.parseInt(id_user); 
+		BasicDBObject query=new BasicDBObject("author_id",id_int);
+		DBCursor c= message.find(query);
+		List <JSONObject> lr = new ArrayList<JSONObject>();
+		while (c.hasNext())
+		{
+			DBObject obj=c.next();
+			JSONObject temp=new JSONObject();			
+			String text= ((BasicBSONObject) obj).getString("text");
+			Integer id = ((BasicBSONObject) obj).getInt("author_id");
+			String login = UserTools.getLogin(id_int);
+			Date d=((BasicBSONObject) obj).getDate("date");
+			
+			temp.put("author_id", id);
+			temp.put("author_name",login);
+			temp.put("text", text);
+			temp.put("date", d);
+			temp.put("comments", ((BasicBSONObject) obj).get("comments"));
+			temp.put("like", ((BasicBSONObject) obj).getInt("like"));
+			lr.add(temp);
+		}
+		return lr;
+	}	
+	public static List<JSONObject> ListMessageMain(String key,String id_user) throws UnknownHostException, JSONException, SQLException
+	{	
+		DBCollection message=Database.getCollection("message_main");
+		DBCursor c= message.find();
+		List <JSONObject> lr = new ArrayList<JSONObject>();
+		while (c.hasNext())
+		{
+			DBObject obj=c.next();
+			JSONObject temp=new JSONObject();			
+			String s = ((BasicBSONObject) obj).getString("content");
+			
+			Integer id = ((BasicBSONObject) obj).getInt("id");
+			Integer idu = ((BasicBSONObject) obj).getInt("id_user");
+		
+			String login = UserTools.getLogin(idu);
+			//String logins=Integer.toString(login);
+			temp.put("id", id);
+			temp.put("login",login);
+			temp.put("text", s);
+			
+			Date d=((BasicBSONObject) obj).getDate("date");
+			temp.put("date", d);
+			temp.put("comments", ((BasicBSONObject) obj).get("comments"));
+			temp.put("like", ((BasicBSONObject) obj).getInt("like"));
+			lr.add(temp);
+		}
+		return lr;
+	}
+	/*
 	public static List<JSONObject> ListPrivateMessages(String key,int id_friend){
 		try {
 			List<JSONObject> Lmessages= new ArrayList<>();
@@ -120,7 +180,7 @@ public class MessageTools {
 			e.printStackTrace();
 		}
 		return null;
-	}
+	}*/
 	
 	
 	

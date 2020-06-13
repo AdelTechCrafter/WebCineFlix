@@ -20,14 +20,16 @@ public class DeleteComment extends HttpServlet {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	//String key, String text,String author_id,String author_name
+	/**key: connexion key
+	 * idcomment: id of the comment in mongodb database (webcineflixdb)
+	**/
 	public void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		String key=request.getParameter("key");
-		String id_comment=request.getParameter("id_comment");
+		String idcomment=request.getParameter("idcomment");
 		try {
 			
-			JSONObject res=Message.RemoveComment(key, new ObjectId(id_comment));
+			JSONObject res=Message.RemoveComment(key, new ObjectId(idcomment));
 			response.setContentType("application/json");
 			response.getWriter().println(res.toString());
 		} catch (JSONException e) {
