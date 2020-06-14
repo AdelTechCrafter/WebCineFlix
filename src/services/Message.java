@@ -86,14 +86,14 @@ public class Message {
 		return bd.MessageTools.RemoveMessage(key,id_message);
 	}
 	
-	public static List<JSONObject> ListMessage(String key, String id_users)throws JSONException, UnknownHostException, SQLException
+	public static List<JSONObject> ListMessage(String key)throws JSONException, UnknownHostException, SQLException
 	{
-		return bd.MessageTools.ListMessage(key,id_users);
+		return bd.MessageTools.ListMessage(key);
 	}
 	
 	public static List<JSONObject> ListMessageMain(String key, String id_users)throws JSONException, UnknownHostException, SQLException
 	{
-		return bd.MessageTools.ListMessageMain(key,id_users);
+		return bd.MessageTools.ListMessageMain(key);
 	}
 	
 	public static List<JSONObject> SearchMessage(String content,String date_1,String date_2)throws JSONException, UnknownHostException, SQLException, ParseException

@@ -61,7 +61,7 @@ public class CommentTools
 		System.out.println(obj);
 		@SuppressWarnings("unchecked")
 		ArrayList<BasicDBObject> commentaire=(ArrayList<BasicDBObject>) obj.get("comments");
-		System.out.println(commentaire);
+		System.out.println(commentaire.toString());
 		return null;
 	}
 	

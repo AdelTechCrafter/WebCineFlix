@@ -2,6 +2,7 @@ function init()
 {
 	noConnection=false;
 	env=new Object();
+	env.messages=[]
 	SetVirtualDB();
 }
 

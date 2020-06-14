@@ -24,10 +24,10 @@ public class TestAddMessage {
 			MessageTools.AddMessage(UserTools.getkeyfromid(1),"Einstein theorem 6");
 			
 			MessageTools.AddMessage(UserTools.getkeyfromid(2),"Marie curie theory 1");
-			MessageTools.AddMessage(UserTools.getkeyfromid(1),"Marie curie theory 2");
-			MessageTools.AddMessage(UserTools.getkeyfromid(1),"Marie curie theory 3");
-			MessageTools.AddMessage(UserTools.getkeyfromid(1),"Marie curie theory 4");
-			MessageTools.AddMessage(UserTools.getkeyfromid(1),"Marie curie theory 5");
+			MessageTools.AddMessage(UserTools.getkeyfromid(2),"Marie curie theory 2");
+			MessageTools.AddMessage(UserTools.getkeyfromid(2),"Marie curie theory 3");
+			MessageTools.AddMessage(UserTools.getkeyfromid(2),"Marie curie theory 4");
+			MessageTools.AddMessage(UserTools.getkeyfromid(2),"Marie curie theory 5");
 			System.out.println("message added");
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block

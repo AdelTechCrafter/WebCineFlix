@@ -70,7 +70,7 @@ Commentaire.prototype.getHTML=function()
 	s+=this.texte;
 	s+="<br/>";
 	s+="J'aime: "
-	s+=this.score;
+		s+=this.score;
 	s+="<br/>";
 	s+="Par "+this.auteur+" le "+this.date;
 	s+="<br/>";
@@ -84,7 +84,7 @@ function completeMessages()
 	$.ajax({
 		type:"GET",
 		url:url,
-		data:"key="+env.key+"&id="+env.id,
+		data:"key="+env.key,
 		datatype: "JSON",
 		success: function(rep)
 		{
@@ -99,26 +99,19 @@ function completeMessages()
 function completeMessagesMain()
 {
 	var url = "ListMessageMain";
-	if (!noConnection)
-	{
-		$.ajax({
-			type:"GET",
-			url:url,
-			data:"key="+env.key+"&id="+env.id,
-			datatype: "JSON",
-			success: function(rep)
-			{
-				completeMessagesReponseMain(rep);
-			},
-			error: function (jqXHR, textStatus, errorThrown){alert(textStatus);},
-		});
-	}
-	else
-	{
-		var tab=getFromLocalDB(env.fromId,-1,env.minId,1);
-		//alert(tab);
-		completeMessagesReponseMain(JSON.stringify(tab));
-	}
+
+	$.ajax({
+		type:"GET",
+		url:url,
+		data:"key="+env.key,
+		datatype: "JSON",
+		success: function(rep)
+		{
+			completeMessagesReponseMain(rep);
+		},
+		error: function (jqXHR, textStatus, errorThrown){alert(textStatus);},
+	});
+
 }
 
 function completeMessagesReponse(rep) 
@@ -129,28 +122,29 @@ function completeMessagesReponse(rep)
 		var m = lm[i];
 		if (m != null)
 		{
-			env.messages[m.id]=m;
-		//s="<br/>";
-		s="<div id=\"message_"+m.id+"\">";
-		s+="<input type=\"button\" value=\"-\" onClick='javascript:replieMessage("+m.id+");'/> ";
-		s+="<br/>";
-		s+="<br/>";
-		s+="<fieldset>";
-		s+="Message ID: "+m.id+" ";
-		s+="<br/>";
-		s+=m.text;
-		s+="<br/>"
-		s+="Par " +m.login + " le " + m.date;
-		s+="<br/>";
-		s+="<br/>";
-		s+="Like: "+m.like;
-		s+="<br/>";
-		s+="<br/>";
-		s+="<fieldset>Commentaires";
-		s+="<br/>";
-		s+="<br/>";
-		s+="<div id=\"espace_commentaire_"+m.id+"\">";
-		//Ajout des commentaires existant
+			env.messages[parseInt(m.id)]=m;
+			//s="<br/>";
+			s="<div id=\"message_"+m.id+"\">";
+			s+="<input type=\"button\" value=\"-\" onClick='javascript:replieMessage("+m.id+");'/> ";
+			s+="<br/>";
+			s+="<br/>";
+			s+="<fieldset>";
+			s+="Message ID: "+m.id+" ";
+			s+="<br/>";
+			s+=m.text;
+			s+="<br/>"
+				s+="Par " +m.login + " le " + m.date;
+			s+="<br/>";
+			s+="<br/>";
+			s+="Like: "+m.like;
+			s+="<br/>";
+			s+="<br/>";
+			s+="<fieldset>Commentaires";
+			s+="<br/>";
+			s+="<br/>";
+			s+="<div id=\"espace_commentaire_"+m.id+"\">";
+			//Ajout des commentaires existant
+			/*
 		if (noConnection)
 		{
 			if ((m.comments!=undefined) && (m.comments.length!=0))
@@ -161,25 +155,24 @@ function completeMessagesReponse(rep)
 					s+=com1.getHTML();
 				}
 			}
-		}
-		else
+		}*/
 			completeComment();
-		s+="</div>";
-		s+="<div id=\"commentaire\">";
-		s+="<form class =\"commentaire\" action=\"javascript:(function(){return;})()\" onSubmit=\"javascript:new_comment("+m.id+")\">";
-		s+="<input type=\"text\" id=\"commentaire_"+m.id+"\"/> ";
-		s+="<input type=\"submit\" value=\"Commenter\"/>";
-		s+="</form>";
-		s+="</div>";
-		s+="</fieldset>";
-		s+="</div>";
-		s+="</fieldset>";
-		s+="<br/>";
-		$("#message_users").append(s);
-		if (m.id > env.maxId)
-			env.maxId = m.id;
-		if (m.id < env.minId)
-			env.minId = m.id;
+			s+="</div>";
+			s+="<div id=\"commentaire\">";
+			s+="<form class =\"commentaire\" action=\"javascript:(function(){return;})()\" onSubmit=\"javascript:new_comment("+m.id+")\">";
+			s+="<input type=\"text\" id=\"commentaire_"+m.id+"\"/> ";
+			s+="<input type=\"submit\" value=\"Commenter\"/>";
+			s+="</form>";
+			s+="</div>";
+			s+="</fieldset>";
+			s+="</div>";
+			s+="</fieldset>";
+			s+="<br/>";
+			$("#message_users").append(s);
+			if (parseInt(m.id) > env.maxId)
+				env.maxId = m.id;
+			if (parseInt(m.id) < env.minId)
+				env.minId = parseInt(m.id);
 		}
 	}
 }
@@ -193,56 +186,56 @@ function completeMessagesReponseMain(rep)
 		var m = lm[i];
 		if (m != null)
 		{
-			env.messages[m.id]=m;
-		//s="<br/>";
-		s="<div id=\"message_"+m.id+"\">";
-		s+="<input type=\"button\" value=\"-\" onClick='javascript:replieMessage("+m.id+");'/> ";
-		s+="<br/>";
-		s+="<br/>";
-		s+="<fieldset>";
-		s+="Message ID: "+m.id+" ";
-		s+="<br/>";
-		s+=m.text;
-		s+="<br/>"
-		s+="Par " +m.login + " le " + m.date;
-		s+="<br/>";
-		s+="<br/>";
-		s+="Like: "+m.like;
-		s+="<br/>";
-		s+="<br/>";
-		s+="<fieldset>Commentaires";
-		s+="<br/>";
-		s+="<br/>";
-		s+="<div id=\"espace_commentaire_"+m.id+"\">";
-		//Ajout des commentaires existant
-		if ((m.comments!=undefined) && (m.comments.length!=0))
-		{
-			for (var j=0; j< m.comments.length; j++)
+			env.messages[parseInt(m.id)]=m;
+			//s="<br/>";
+			s="<div id=\"message_"+m.id+"\">";
+			s+="<input type=\"button\" value=\"-\" onClick='javascript:replieMessage("+m.id+");'/> ";
+			s+="<br/>";
+			s+="<br/>";
+			s+="<fieldset>";
+			s+="Message ID: "+m.id+" ";
+			s+="<br/>";
+			s+=m.text;
+			s+="<br/>"
+				s+="Par " +m.login + " le " + m.date;
+			s+="<br/>";
+			s+="<br/>";
+			s+="Like: "+m.like;
+			s+="<br/>";
+			s+="<br/>";
+			s+="<fieldset>Commentaires";
+			s+="<br/>";
+			s+="<br/>";
+			s+="<div id=\"espace_commentaire_"+m.id+"\">";
+			//Ajout des commentaires existant
+			if ((m.comments!=undefined) && (m.comments.length!=0))
 			{
-				com1 = new Commentaire(m.comments[j].id,m.comments[j].auteur,m.comments[j].texte, m.comments[j].date, m.comments[j].score)
-				s+=com1.getHTML();
+				for (var j=0; j< m.comments.length; j++)
+				{
+					com1 = new Commentaire(m.comments[j].id,m.comments[j].auteur,m.comments[j].texte, m.comments[j].date, m.comments[j].score)
+					s+=com1.getHTML();
+				}
 			}
-		}
-		s+="</div>";
-		s+="<div id=\"commentaire\">";
-		s+="<form class =\"commentaire\" action=\"javascript:(function(){return;})()\" onSubmit=\"javascript:new_comment("+m.id+")\">";
-		s+="<input type=\"text\" id=\"commentaire_"+m.id+"\"/> ";
-		s+="<input type=\"submit\" value=\"Commenter\"/>";
-		s+="</form>";
-		s+="</div>";
-		s+="</fieldset>";
-		s+="</div>";
-		s+="</fieldset>";
-		s+="<br/>";
-		$("#liste_message").append(s);
-		if (m.id > env.maxId)
-			env.maxId = m.id;
-		if (m.id < env.minId)
-			env.minId = m.id;
+			s+="</div>";
+			s+="<div id=\"commentaire\">";
+			s+="<form class =\"commentaire\" action=\"javascript:(function(){return;})()\" onSubmit=\"javascript:new_comment("+m.id+")\">";
+			s+="<input type=\"text\" id=\"commentaire_"+m.id+"\"/> ";
+			s+="<input type=\"submit\" value=\"Commenter\"/>";
+			s+="</form>";
+			s+="</div>";
+			s+="</fieldset>";
+			s+="</div>";
+			s+="</fieldset>";
+			s+="<br/>";
+			$("#liste_message").append(s);
+			if (parseInt(m.id) > env.maxId)
+				env.maxId = m.id;
+			if (parseInt(m.id) < env.minId)
+				env.minId = m.id;
 		}
 	}
 }
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 function completeComment()
 {
 	var url = "ListComment";
@@ -292,7 +285,7 @@ function new_comment(id)
 		newComment_response(id, JSON.stringify(new_comment));
 	}
 }
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 function newComment_response(id,rep)
 {
 	com=JSON.parse(rep,revival);
@@ -334,7 +327,7 @@ function developpeMessage(id)
 	s+="<br/>";
 	s+=m.text;
 	s+="<br/>"
-	s+="Par " +m.login + " le " + m.date;
+		s+="Par " +m.login + " le " + m.date;
 	s+="<br/>";
 	s+="<br/>";
 	s+="Like: "+m.like;
@@ -477,30 +470,21 @@ function newMessage_users_response(id,rep)
 	}
 }
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 function refreshMessage()
 {
 	if (env.query==undefined)
 		return;
-	if (!noConnection)
-	{
-		var url = "ListMessage"
+	var url = "ListMessage"
 		$.ajax({
 			type:"GET",
 			url:url,
-			//data:"key="+env.key+"&query="+env.query+"&from="+env.fromId+"&id_max=-1 &id_min="+ env.maxId+ "&nb=-1",
-			data:"key="+env.key+"&id="+env.fromId,
+			data:"key="+env.key,
 			datatype: "JSON",
 			sucess : function(rep){ refreshMessageResponse(rep);},
 			error: function (jqXHR, textStatus, errorThrown){alert(textStatus);},
 		});
-	}
-	else
-	{
-		var text=$("#text_new_message").val();
-		var re_message=new Message(env.messages[id].comments.length+1,{"id":env.id,"login":env.login},text,new Date());
-		refreshMessageResponse(JSON.stringify(re_message));
-	}
+
 }
 
 function refreshMessageResponse(rep)
@@ -510,10 +494,10 @@ function refreshMessageResponse(rep)
 	{
 		var m=tab[i];
 		$("#messages").prepend(m.getHTML());
-		env.messages[m.id] = m;
-		if (m.id > env.maxId)
+		env.messages[parseInt(m.id)] = m;
+		if (parseInt(m.id) > env.maxId)
 			env.maxId = env.id;
 		if ((env.minId<0)||(m.id<env.minId))
-			env.minId = m.id;
+			env.minId = parseInt(m.id);
 	}
 }

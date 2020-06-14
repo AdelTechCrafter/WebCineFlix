@@ -157,9 +157,9 @@ public class MessageTools {
 		}
 	}
 	
-	public static List<JSONObject> ListMessage(String key,String id_users) throws UnknownHostException, JSONException, SQLException{	
+	public static List<JSONObject> ListMessage(String key) throws UnknownHostException, JSONException, SQLException{	
 		DBCollection message=Database.getCollection("message");
-		int id_int = Integer.parseInt(id_users); 
+		int id_int = UserTools.getIdfromkey(key); 
 		BasicDBObject query=new BasicDBObject("id_user",id_int);
 		DBCursor c= message.find(query);
 		List <JSONObject> lr = new ArrayList<JSONObject>();
@@ -168,41 +168,43 @@ public class MessageTools {
 		{
 			DBObject obj=c.next();
 			JSONObject temp=new JSONObject();			
-			String s = ((BasicBSONObject) obj).getString("content");
+			String s = ((BasicBSONObject) obj).getString("text");
+			Integer id_user = ((BasicBSONObject) obj).getInt("id_user");
 			Integer id = ((BasicBSONObject) obj).getInt("id");
 			String login = UserTools.getLogin(id_int);
 			Date d=((BasicBSONObject) obj).getDate("date");
 			
-			temp.put("id", id);
+			temp.put("id",id);
+			temp.put("id_user",id_user);
 			temp.put("login",login);
 			temp.put("text", s);
 			temp.put("date", d);
 			temp.put("comments", ((BasicBSONObject) obj).get("comments"));
 			temp.put("like", ((BasicBSONObject) obj).getInt("like"));
-			
 			lr.add(temp);
 		}
 		return lr;
 	}	
 	
-	public static List<JSONObject> ListMessageMain(String key,String id_users) throws UnknownHostException, JSONException, SQLException
+	public static List<JSONObject> ListMessageMain(String key) throws UnknownHostException, JSONException, SQLException
 	{	
 		DBCollection message=Database.getCollection("message_main");
 		DBCursor c= message.find();
 		List <JSONObject> lr = new ArrayList<JSONObject>(); 
+		int id_int = UserTools.getIdfromkey(key); 
 		while (c.hasNext())
 		{
 			DBObject obj=c.next();
 			JSONObject temp=new JSONObject();			
-			String s = ((BasicBSONObject) obj).getString("content");
-		
+			String s = ((BasicBSONObject) obj).getString("text");
+			Integer id_user = ((BasicBSONObject) obj).getInt("id_user");
 			Integer id = ((BasicBSONObject) obj).getInt("id");
-			Integer idu = ((BasicBSONObject) obj).getInt("id_user");
-			
-			String login = UserTools.getLogin(idu);
+			String login = UserTools.getLogin(id_int);
 			Date d=((BasicBSONObject) obj).getDate("date");
+		
 			
-			temp.put("id", id);
+			temp.put("id",id);
+			temp.put("id_user",id_user);
 			temp.put("login",login);
 			temp.put("text", s);
 			temp.put("date", d);
@@ -228,7 +230,7 @@ public class MessageTools {
 		{
 			DBObject obj=c.next();
 			JSONObject temp=new JSONObject();			
-			String s = ((BasicBSONObject) obj).getString("content");
+			String s = ((BasicBSONObject) obj).getString("text");
 			Integer id = ((BasicBSONObject) obj).getInt("id");
 			Integer idu = ((BasicBSONObject) obj).getInt("id_user");
 			String login = UserTools.getLogin(idu);
@@ -242,6 +244,7 @@ public class MessageTools {
 					if (like>10)
 					{
 						temp.put("id", id);
+						temp.put("id_user", idu);
 						temp.put("login",login);
 						temp.put("text", s);
 						temp.put("date", d);
