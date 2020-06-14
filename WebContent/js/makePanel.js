@@ -13,7 +13,7 @@ function makeMdpLostPanel()
 	$("body").load("html/mdp_lost.html");
 }
 
-function makeMainPanel(fromId,fromLogin,query)
+function makeMainPanel(id_user,login)
 {
 	s="<header>";
 	s+="<div id=\"logo\">";
@@ -30,7 +30,7 @@ function makeMainPanel(fromId,fromLogin,query)
 	s+="</div>";
 	s+="<div id=\"connect\">";
 	s+="<br/>";
-	s+="<a href=\"javascript:makeProfilPanel("+fromId+",'"+fromLogin+"')\"> Profil </a> | ";
+	s+="<a href=\"javascript:makeProfilPanel("+id_user+",'"+login+"')\"> Profil </a> | ";
 	s+="<a href=\"javascript:makeSearchPanel("+env.id+",'"+env.login+"')\"> Recherche Avancé </a> | ";
 	s+="<a href=\"javascript:makeConnexionPanel()\"> Deconnexion </a> ";
 	s+="</div>";
@@ -56,18 +56,8 @@ function makeMainPanel(fromId,fromLogin,query)
 	s+="</div>";
 	s+="</div>";
 	s+="<div id=\"liste_message\">";
-
-	if (noConnection)
-	{
-		//Ajout des messages existant
-		if (main_message.length!=0)
-		{
-			for (var j=0; j< main_message.length; j++)
-				s+=main_message[j].getHTML();
-		}
-	}
-	else
-		completeMessagesMain();
+	
+	completeMessagesMain();
 	/*
 	//Ajout des messages de la session en cours
 	if (env.msg.length!=0)
@@ -85,16 +75,13 @@ function makeMainPanel(fromId,fromLogin,query)
 	s+="</section>";
 	$("body").html(s);
 }
-
-function makeProfilPanel(fromId,fromLogin,query)
+function makeProfilPanel(fromId,fromLogin)
 {
 	if (fromId==undefined)
 		fromId=-1;
 	env.fromId=fromId;
-	env.msg=[];
-	env.query=query;
-	env.fromLogin=fromLogin;
-	console.log(env.fromLogin);
+	env.messsages=[];
+	console.log(fromLogin);
 	var s="";
 	//HEADER
 	s+="<header>";
@@ -123,7 +110,7 @@ function makeProfilPanel(fromId,fromLogin,query)
 		$("body").load("html/profil.html");
 	else
 	{
-		if (!env.follows.has(env.fromId))
+		if (!env.follows.has(fromId))
 		{
 			s+="<br/>";
 			s+="<br/>";
@@ -180,15 +167,14 @@ function makeProfilPanel(fromId,fromLogin,query)
 	completeMessages();
 }
 
-function makeSearchPanel(fromId,fromLogin,query)
+function makeSearchPanel(id_user,login)
 {
-	if (fromId==undefined)
-		fromId=-1;
-	env.fromId=fromId;
+	if (id_user==undefined)
+		id_user=-1;
+	env.id_user=id_user;
 	env.msg=[];
-	env.query=query;
-	env.fromLogin=fromLogin;
-	console.log(env.fromLogin);
+	env.login=login;
+	console.log(env.login);
 	var s="";
 	//HEADER
 	s+="<header>";

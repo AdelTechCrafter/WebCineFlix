@@ -2,18 +2,15 @@ package services;
 
 import java.net.UnknownHostException;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.List;
 
 import org.bson.types.ObjectId;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import servicesTools.ErrorJSON;
-import bd.FriendTools;
-import bd.MessageTools;
-import bd.UserTools;
-
 public class Message {
+	/*
 	public static JSONObject AddComment(String key, String text) throws JSONException, UnknownHostException, SQLException{
 		//1)param!=null
 		if((key==null)||(text==null)){
@@ -72,7 +69,23 @@ public class Message {
 		JSONObject retour=new JSONObject();
 		retour=ErrorJSON.serviceAccepted();
 		return retour;		
+	}*/
+	
+	public static JSONObject AddMessage(String key,String message)throws JSONException, UnknownHostException, SQLException
+	{
+		return bd.MessageTools.AddMessage(key,message);
 	}
+	
+	public static JSONObject AddMessageMain(String key,String message)throws JSONException, UnknownHostException, SQLException
+	{
+		return bd.MessageTools.AddMessageMain(key,message);
+	}
+	
+	public static JSONObject RemoveMessage(String key,ObjectId id_message)throws JSONException, UnknownHostException, SQLException
+	{
+		return bd.MessageTools.RemoveMessage(key,id_message);
+	}
+	
 	public static List<JSONObject> ListMessage(String key, String id_users)throws JSONException, UnknownHostException, SQLException
 	{
 		return bd.MessageTools.ListMessage(key,id_users);
@@ -81,5 +94,10 @@ public class Message {
 	public static List<JSONObject> ListMessageMain(String key, String id_users)throws JSONException, UnknownHostException, SQLException
 	{
 		return bd.MessageTools.ListMessageMain(key,id_users);
+	}
+	
+	public static List<JSONObject> SearchMessage(String content,String date_1,String date_2)throws JSONException, UnknownHostException, SQLException, ParseException
+	{
+		return bd.MessageTools.SearchMessage(content,date_1,date_2);
 	}
 }

@@ -1,23 +1,23 @@
-package test;
+package test.users;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
 import org.json.JSONException;
 
-import bd.Database;
+
 import services.User;
 
-public class TestCreateUser {
-
+public class TestDeleteUser {
 	public static void main(String[] args) {
 		//Connection c = Database.getMySQLConnection();
 		try {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
-			User.CreateUser("Dion","Celine", "singer03", "secret1234");
-			Connection c =Database.getMySQLConnection();
+			User.DeleteUser("f5g48d4q6s5d91cv5f4g3df45q1g8t5h");
+			Connection c = DriverManager.getConnection("jdbc:mysql://localhost/webcineflixdb","root","root");
 			Statement instruction = c.createStatement();
 			
 			ResultSet curseur = instruction.executeQuery("Select * from USERS;");
@@ -26,7 +26,7 @@ public class TestCreateUser {
 				System.out.println(curseur.getString("login"));
 				System.out.println(curseur.getString("Nom"));
 				System.out.println(curseur.getString("prenom"));
-				System.out.println(curseur.getString("password"));
+				System.out.println(curseur.getString("password"));		
 			}
 			curseur.close();
 			instruction.close();

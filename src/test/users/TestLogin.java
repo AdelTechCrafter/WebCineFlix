@@ -1,7 +1,6 @@
-package test;
+package test.users;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -9,24 +8,29 @@ import java.sql.Statement;
 import org.json.JSONException;
 
 
-import services.User;
 
-public class TestDeleteUser {
+
+import services.User;
+import bd.Database;
+
+
+public class TestLogin {
 	public static void main(String[] args) {
-		//Connection c = Database.getMySQLConnection();
 		try {
-			Class.forName("com.mysql.jdbc.Driver").newInstance();
-			User.DeleteUser("f5g48d4q6s5d91cv5f4g3df45q1g8t5h");
-			Connection c = DriverManager.getConnection("jdbc:mysql://localhost/webcineflixdb","root","root");
-			Statement instruction = c.createStatement();
 			
-			ResultSet curseur = instruction.executeQuery("Select * from USERS;");
+			Class.forName("com.mysql.jdbc.Driver").newInstance();	
+			User.Login("Einstein","secret1234");
+			User.Login("Curie","secret1234");
+			User.Login("Obama","secret1234");
+			
+			Connection c =Database.getMySQLConnection();
+			Statement instruction = c.createStatement();
+			ResultSet curseur = instruction.executeQuery("Select * from CONNEXIONS;");
 			while (curseur.next()){
+				System.out.println(curseur.getString("connexion_key"));
 				System.out.println(curseur.getString("id_user"));
-				System.out.println(curseur.getString("login"));
-				System.out.println(curseur.getString("Nom"));
-				System.out.println(curseur.getString("prenom"));
-				System.out.println(curseur.getString("password"));		
+				System.out.println(curseur.getDate("date_connexion").toString());
+				System.out.println(curseur.getBoolean("root"));		
 			}
 			curseur.close();
 			instruction.close();

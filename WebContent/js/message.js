@@ -13,7 +13,7 @@ function Message(id,login,text,date,comments,like)
 }
 Message.prototype.getHTML=function()
 {
-	env.msg[this.id]=this;
+	env.messages[this.id]=this;
 	s="<div id=message_"+this.id+">";
 	s+="<input type=\"button\" value=\"-\" onClick='javascript:replieMessage("+this.id+");'/> ";
 	s+="<br/>";
@@ -78,31 +78,22 @@ Commentaire.prototype.getHTML=function()
 	return s;
 }
 
-//data:"key="+env.key+"&id_user="+env.id+"&from="+env.fromId+"&id_max"+env.mindId+"&id_min=-1 &nb=10",
-			
 function completeMessages()
 {
 	var url = "ListMessage";
-	if (!noConnection)
-	{
-		$.ajax({
-			type:"GET",
-			url:url,
-			data:"key="+env.key+"&id="+env.id,
-			datatype: "JSON",
-			success: function(rep)
-			{
-				completeMessagesReponse(rep);
-			},
-			error: function (jqXHR, textStatus, errorThrown){alert(textStatus);},
-		});
-	}
-	else
-	{
-		var tab=getFromLocalDB(env.fromId,-1,env.minId,1);
-		//alert(tab);
-		completeMessagesReponse(JSON.stringify(tab));
-	}
+	$.ajax({
+		type:"GET",
+		url:url,
+		data:"key="+env.key+"&id="+env.id,
+		datatype: "JSON",
+		success: function(rep)
+		{
+			completeMessagesReponse(rep);
+		},
+		error: function (jqXHR, textStatus, errorThrown){alert(textStatus);},
+	});
+
+
 }
 
 function completeMessagesMain()
@@ -138,7 +129,7 @@ function completeMessagesReponse(rep)
 		var m = lm[i];
 		if (m != null)
 		{
-			env.msg[m.id]=m;
+			env.messages[m.id]=m;
 		//s="<br/>";
 		s="<div id=\"message_"+m.id+"\">";
 		s+="<input type=\"button\" value=\"-\" onClick='javascript:replieMessage("+m.id+");'/> ";
@@ -202,7 +193,7 @@ function completeMessagesReponseMain(rep)
 		var m = lm[i];
 		if (m != null)
 		{
-			env.msg[m.id]=m;
+			env.messages[m.id]=m;
 		//s="<br/>";
 		s="<div id=\"message_"+m.id+"\">";
 		s+="<input type=\"button\" value=\"-\" onClick='javascript:replieMessage("+m.id+");'/> ";
@@ -274,18 +265,13 @@ function completeComment()
 	}
 }
 
-function completeCommentResponse(rep)
-{
-	alert("A voir avec le prof niveau servlet");
-}
-
 
 function new_comment(id)
 {
 	var text=$("#commentaire_"+id).val();
 	if (!noConnection)
 	{
-		//var new_comment=new Commentaire(env.msg[id].comments.length+1,env.login,text,new Date());
+		//var new_comment=new Commentaire(env.messages[id].comments.length+1,env.login,text,new Date());
 		var url = "AddComment";
 		$.ajax({
 			type:"GET",
@@ -301,8 +287,8 @@ function new_comment(id)
 	}
 	else
 	{
-		//var new_comment=new Commentaire(env.msg[id].comments.length+1,{"id":env.id,"login":env.login},text,new Date());
-		var new_comment=new Commentaire(env.msg[id].comments.length+1,env.login,text,new Date());
+		//var new_comment=new Commentaire(env.messages[id].comments.length+1,{"id":env.id,"login":env.login},text,new Date());
+		var new_comment=new Commentaire(env.messages[id].comments.length+1,env.login,text,new Date());
 		newComment_response(id, JSON.stringify(new_comment));
 	}
 }
@@ -325,11 +311,11 @@ function newComment_response(id,rep)
 			}
 			i=i+1;
 		}
-		env.msg[id].comments.push(com);
-		//alert(env.msg[id].comments[0].texte);
+		env.messages[id].comments.push(com);
+		//alert(env.messages[id].comments[0].texte);
 		/*
 		if (noConnection)
-			//localdb[id]=env.msg[id];
+			//localdb[id]=env.messages[id];
 		else
 			alert(com.erreur);*/
 	}
@@ -337,7 +323,7 @@ function newComment_response(id,rep)
 
 function developpeMessage(id)
 {
-	var m=env.msg[id];
+	var m=env.messages[id];
 	//var el=$("#message_"+id+".comments");
 	s="<div id=\"message_"+m.id+"\">";
 	s+="<input type=\"button\" value=\"-\" onClick='javascript:replieMessage("+m.id+");'/> ";
@@ -382,7 +368,7 @@ function developpeMessage(id)
 
 function replieMessage(id)
 {
-	var m = env.msg[id];
+	var m = env.messages[id];
 	var el=$("#message_"+id);
 	el.html(" ");
 	$("#message_"+id).append("<input type=\"button\" value=\"+\" onClick='javascript:developpeMessage("+id+");' />");
@@ -439,7 +425,7 @@ function newMessage_response(id,rep)
 		main_message[main_message.length]=mess;
 		/*
 		if (noConnection)
-			//localdb[id]=env.msg[id];
+			//localdb[id]=env.messages[id];
 		else
 			alert(com.erreur);*/
 	}
@@ -485,7 +471,7 @@ function newMessage_users_response(id,rep)
 		//makeProfilPanel(env.id,env.login);
 		/*
 		if (noConnection)
-			//localdb[id]=env.msg[id];
+			//localdb[id]=env.messages[id];
 		else
 			alert(com.erreur);*/
 	}
@@ -502,7 +488,8 @@ function refreshMessage()
 		$.ajax({
 			type:"GET",
 			url:url,
-			data:"key="+env.key+"&query="+env.query+"&from="+env.fromId+"&id_max=-1 &id_min="+ env.maxId+ "&nb=-1",
+			//data:"key="+env.key+"&query="+env.query+"&from="+env.fromId+"&id_max=-1 &id_min="+ env.maxId+ "&nb=-1",
+			data:"key="+env.key+"&id="+env.fromId,
 			datatype: "JSON",
 			sucess : function(rep){ refreshMessageResponse(rep);},
 			error: function (jqXHR, textStatus, errorThrown){alert(textStatus);},
@@ -511,7 +498,7 @@ function refreshMessage()
 	else
 	{
 		var text=$("#text_new_message").val();
-		var re_message=new Message(env.msg[id].comments.length+1,{"id":env.id,"login":env.login},text,new Date());
+		var re_message=new Message(env.messages[id].comments.length+1,{"id":env.id,"login":env.login},text,new Date());
 		refreshMessageResponse(JSON.stringify(re_message));
 	}
 }
@@ -523,7 +510,7 @@ function refreshMessageResponse(rep)
 	{
 		var m=tab[i];
 		$("#messages").prepend(m.getHTML());
-		env.msg[m.id] = m;
+		env.messages[m.id] = m;
 		if (m.id > env.maxId)
 			env.maxId = env.id;
 		if ((env.minId<0)||(m.id<env.minId))

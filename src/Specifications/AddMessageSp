@@ -1,0 +1,7 @@
+Nom du web service:AddMessage
+URL du web service:/AddMessage
+Description du service:permet d'ajouter un message
+Paramètres en entrée:key + text
+Format de sortie:JSON->{}
+Exemple de sortie:{},{"Erreur 1002:l'utilisateur n'est pas connecté"}
+Erreurs possibles:user inexistant/SQL erreur/ JSON erreur

@@ -14,9 +14,9 @@ Chaque service bénéficie d'une spécifiation propre dans le package src.Specifica
 -Serveur d'application Tomcat (version recommandée: 7)   
 -Serveur MongoDB (version recommandée: 4.2)   
  
-###optional: 
--outils all-in one :XAAMP (MySQL with phpmyadmin+Apache+Tomcat) 
--monitoring: MongoDBCompassCommunity (graphical interface for monitoring mongoDB collections) 
+###optional:   
+-outils all-in one :XAAMP (MySQL with phpmyadmin+Apache+Tomcat)   
+-monitoring: MongoDBCompassCommunity (graphical interface for monitoring mongoDB collections)   
  
 ###jars Eclipse: 
 -javax.servlet-api-3.1.0.jar 

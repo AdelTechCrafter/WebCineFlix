@@ -34,7 +34,7 @@ function advance_search_res(content,date_1,date_2)
 	console.log("Recherche du message contenant " + content);
 	console.log("Date début " + date_1);
 	console.log("Date fin " + date_2);
-	var url = "AdvanceSearch";
+	var url = "SearchMessage";
 	if (!noConnection)
 	{
 		$.ajax({

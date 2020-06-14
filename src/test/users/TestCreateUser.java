@@ -1,29 +1,34 @@
-package test;
+package test.users;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class TestBD {
+import org.json.JSONException;
+
+import bd.Database;
+import services.User;
+
+public class TestCreateUser {
 
 	public static void main(String[] args) {
 		//Connection c = Database.getMySQLConnection();
 		try {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
-			Connection c = DriverManager.getConnection("jdbc:mysql://localhost/AdelDB","root","root");
+			//User.CreateUser("Einstein","Albert", "Einstein", "secret1234");
+			//User.CreateUser("Curie","Marie", "Curie", "secret1234");
+			User.CreateUser("Obama","Barack", "Obama", "secret1234");
+			Connection c =Database.getMySQLConnection();
 			Statement instruction = c.createStatement();
-			String query="INSERT INTO USERS VALUES(NULL,\""+"Armstrong"+"\",\""+"Neil"+"\",\""+"logX"+"\",\""+"PASSWORD('passNeil')"+"\");";
-		    System.out.println(query);
-		    instruction.execute(query);
+			
 			ResultSet curseur = instruction.executeQuery("Select * from USERS;");
 			while (curseur.next()){
 				System.out.println(curseur.getString("id_user"));
 				System.out.println(curseur.getString("login"));
 				System.out.println(curseur.getString("Nom"));
 				System.out.println(curseur.getString("prenom"));
-				System.out.println(curseur.getString("Passwd"));		
+				System.out.println(curseur.getString("password"));
 			}
 			curseur.close();
 			instruction.close();
@@ -40,11 +45,11 @@ public class TestBD {
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
 			
 	}		
-
 }
-
-

@@ -11,6 +11,9 @@ function SetVirtualDB()
 	localusers=[];
 	follows=[];
 	main_message=[];
+	//var a1={"id":1,"login":"sly","password":"mdp"};
+	//var a2={"id:":2,"login":"fab","password":"mdp"};
+	//var a3={"id":4, "login":"joe","password":"mdp"};
 
 	var c1=new Commentaire(1,"user3","hum",new Date(),0);
 	var c2=new Commentaire(2,"user4","humhum",new Date(),0);
@@ -21,10 +24,10 @@ function SetVirtualDB()
 	main_message[2]=new Message(49,"3408748","test3",new Date(),[c1]);
 
 	//LOGIN/PWD
-	localusers[0]=new Users(1,"Marie","secret1234");
-	localusers[1]=new Users(2,"John","secret1234");
+	localusers[0]=new Users(1,"fabien","monmdp");
+	localusers[1]=new Users(2,"moro","monmdp");
 
-	
+	//Fabien suit Moro et vice-versa
 	follows[1]=new Set()
 	follows[1].add(2);
 	follows[2]=new Set();

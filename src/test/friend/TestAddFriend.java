@@ -1,4 +1,4 @@
-package test;
+package test.friend;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,16 +8,20 @@ import java.sql.Statement;
 
 import org.json.JSONException;
 
+import bd.UserTools;
 import services.Friend;
 
-public class TestRemoveFriend {
+public class TestAddFriend {
 
 	public static void main(String[] args) {
 		//Connection c = Database.getMySQLConnection();
 		try {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
-			Friend.RemoveFriend("KFDB5FZRPPNPBI7BCF1F3FK4G032V1US",3);
-			Connection c = DriverManager.getConnection("jdbc:mysql://localhost/AdelDB","root","root");
+			//Friend.AddFriend(UserTools.getkeyfromid(1),2);
+			//Friend.AddFriend(UserTools.getkeyfromid(2),1);
+			//Friend.AddFriend(UserTools.getkeyfromid(2),5);
+			Friend.AddFriend(UserTools.getkeyfromid(5),2);
+			Connection c = DriverManager.getConnection("jdbc:mysql://localhost/webcineflixdb","root","");
 			Statement instruction = c.createStatement();
 			
 			ResultSet curseur = instruction.executeQuery("Select * from FRIENDS;");

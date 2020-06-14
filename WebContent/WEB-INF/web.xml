@@ -3,6 +3,7 @@
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee 
          http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
 	version="3.1">
+	<display-name>WebCineFlix</display-name>
 	<servlet>
 		<servlet-name>HelloWorld</servlet-name>
 		<servlet-class>servlet.HelloWorld</servlet-class>
@@ -14,6 +15,10 @@
 	<servlet>
 		<servlet-name>DeleteUser</servlet-name>
 		<servlet-class>servlet.user.DeleteUser</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>SearchMessage</servlet-name>
+		<servlet-class>servlet.message.SearchMessage</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>Login</servlet-name>
@@ -31,22 +36,38 @@
 		<servlet-name>RemoveFriend</servlet-name>
 		<servlet-class>servlet.friend.RemoveFriend</servlet-class>
 	</servlet>
+	
+	<servlet>
+		<servlet-name>AddMessage</servlet-name>
+		<servlet-class>servlet.message.AddMessage</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>AddMessageMain</servlet-name>
+		<servlet-class>servlet.message.AddMessageMain</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>RemoveMessage</servlet-name>
+		<servlet-class>servlet.message.RemoveMessage</servlet-class>
+	</servlet>			
+
+	<servlet>
+		<servlet-name>ListMessage</servlet-name>
+		<servlet-class>servlet.message.ListMessage</servlet-class>
+	</servlet>			
+
+	<servlet>
+		<servlet-name>ListMessageMain</servlet-name>
+		<servlet-class>servlet.message.ListMessageMain</servlet-class>
+	</servlet>
+	
 	<servlet>
 		<servlet-name>AddComment</servlet-name>
-		<servlet-class>servlet.message.AddComment</servlet-class>
+		<servlet-class>servlet.comments.AddComment</servlet-class>
 	</servlet>
-	<servlet>
-		<servlet-name>AddPrivateComment</servlet-name>
-		<servlet-class>servlet.message.AddPrivateComment</servlet-class>
-	</servlet>
-	<servlet>
-		<servlet-name>AddPrivateMessage</servlet-name>
-		<servlet-class>servlet.message.AddPrivateMessage</servlet-class>
-	</servlet>
-	<servlet>
-		<servlet-name>DeleteComment</servlet-name>
-		<servlet-class>servlet.message.DeleteComment</servlet-class>
-	</servlet>
+				
+	
 	<servlet-mapping>
 		<servlet-name>HelloWorld</servlet-name>
 		<url-pattern>/HelloWorld</url-pattern>
@@ -58,6 +79,10 @@
 	<servlet-mapping>
 		<servlet-name>DeleteUser</servlet-name>
 		<url-pattern>/DeleteUser</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>SearchMessage</servlet-name>
+		<url-pattern>/SearchMessage</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>Login</servlet-name>
@@ -75,16 +100,34 @@
 		<servlet-name>RemoveFriend</servlet-name>
 		<url-pattern>/RemoveFriend</url-pattern>
 	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>AddMessage</servlet-name>
+		<url-pattern>/AddMessage</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>AddMessageMain</servlet-name>
+		<url-pattern>/AddMessageMain</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>RemoveMessage</servlet-name>
+		<url-pattern>/RemoveMessage</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>ListMessage</servlet-name>
+		<url-pattern>/ListMessage</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>ListMessageMain</servlet-name>
+		<url-pattern>/ListMessageMain</url-pattern>
+	</servlet-mapping>
+	
 	<servlet-mapping>
 		<servlet-name>AddComment</servlet-name>
 		<url-pattern>/AddComment</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>AddPrivateMessage</servlet-name>
-		<url-pattern>/AddPrivateMessage</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>DeleteComment</servlet-name>
-		<url-pattern>/DeleteComment</url-pattern>
 	</servlet-mapping>
 </web-app>

@@ -25,23 +25,32 @@ public class User {
 		return o;
 	}
 	public static JSONObject Login(String login, String passwd) throws JSONException, SQLException{
+		JSONObject ret=new JSONObject();
 		//1)param!=null
 		if((login==null)||(passwd==null)){
 			return ErrorJSON.serviceRefused("mauvais arguments",0);
 		}
-		//2)verifier si user existe
-		boolean is_user=UserTools.userExists(login);
-		if(!is_user) return ErrorJSON.serviceRefused("Unknown user "+login,1);
+		//2)verifier si user n'existe
+		if(!UserTools.userExists(login)) {
+			ret.put("Status","KO");
+			ret.put("Error","Users does not exists");
+			return ret;
+		} 
 		
 		//3)verifier mdp
-		boolean passwd_ok=UserTools.Checkpasswd(login,passwd);
-		if(!passwd_ok) return ErrorJSON.serviceRefused("Bad password "+login,2);
+		if(!UserTools.Checkpasswd(login,passwd)) {
+			ret.put("Status","KO");
+			ret.put("Error","Wrong Password");
+			return ret;
+		}
 		//4)generer la cle + insertion dans la table CONNEXION: InsertConnexion(int id,boolean root)
-		JSONObject retour=new JSONObject();
 		int id=UserTools.getIdfromlog(login);
 		String key=UserTools.InsertConnexion(id,false);
-		retour.put("key",key); 
-		return retour;		
+		ret.put("Status","OK");
+		ret.put("key",key);
+		ret.put("id", UserTools.getIdfromlog(login));
+		ret.put("login", login);
+		return ret;		
 	}
 	public static JSONObject Logout(String key) throws JSONException, SQLException{
 		//1)param!=null

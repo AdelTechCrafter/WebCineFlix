@@ -1,0 +1,7 @@
+Nom du web service:SearchMessage
+URL du web service:/SearchMessage
+Description du service:permet de chercher un message dont la date est comprise entre date_1 et date_2
+Paramètres en entrée: content+ date_1+ date_2
+Format de sortie:JSON->{}
+Exemple de sortie:{},{"Erreur 1002:l'utilisateur n'est pas connecté"}
+Erreurs possibles:user inexistant/SQL erreur/ JSON erreur

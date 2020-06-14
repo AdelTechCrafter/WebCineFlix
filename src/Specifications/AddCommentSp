@@ -1,9 +1,8 @@
 Nom du web service:AddComment
 URL du web service:/AddComment
-Description du service:permet d'ajouter un commentaire
-Paramètres en entrée:key + text
+Description du service:permet de commenter un message
+Paramètres en entrée:key +idcommentaire+ text
 Format de sortie:JSON->{}
 Exemple de sortie:{},{"Erreur 1002:l'utilisateur n'est pas connecté"}
 Erreurs possibles:user inexistant/SQL erreur/ JSON erreur
-Avancement du Service: Servlet implémentée, cependant le script javascript qui lance l'ajout ne fonctionne pas
-Classes JAVA en rapport avec le Web service:BD/ErrorJSON.java/ToolMessage.java
+
