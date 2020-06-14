@@ -22,15 +22,16 @@ Chaque service bénéficie d'une spécifiation propre dans le package src.Specifica
 -javax.servlet-api-3.1.0.jar 
 -json-org.jar 
 -mongo-java-driver-3.12.5.jar 
--mysql-connector-java-5.1.18-bin.jar 
-##Configuration des bases de données: 
+-mysql-connector-java-5.1.18-bin.jar
+  
+##Configuration des bases de données:   
 -src.bd.DBStatic
 
 ##Initialisation des tables et collections:  
 -MySQL: src.bd.CreateTable.sql  
 -MongoDB: src.bd.CreateMessage.txt  
 
-##Deploiement
+##Deploiement:  
 -Dans un terminal lancer le serveur MongoDB (mongod.exe) et ouvrir l'interface graphique pour visualiser les collections (DBCompassCommunity).   
 -Sur XAAMP lancer les serveurs Apache, MySQL et Tomcat.  
 -Lancer phpmyadmin sur XAAMP (admin mySQL) pour visualiser les tables.   
